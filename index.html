@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nevado - Transporte Ejecutivo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Paleta basada en el azul del vehículo Nevado */
+            --accent: #87b9d1; 
+            --accent-bright: #00d9ff;
+            --dark-bg: #0a0c10;
+            --glass: rgba(15, 20, 25, 0.85);
+            --glass-border: rgba(135, 185, 209, 0.2);
+            --text-light: #f0f4f8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background: radial-gradient(circle at center, #1a252f 0%, #0a0c10 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Marca de agua lateral (nevado2.png) */
+        .watermark-bg {
+            position: fixed;
+            top: 0;
+            right: -35%; /* Solo media camioneta visible en móvil */
+            height: 100vh;
+            width: 120%;
+            background-image: url('nevado2.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: right center;
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .card-container {
+            width: 92%;
+            max-width: 400px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 35px;
+            padding: 25px;
+            text-align: center;
+            z-index: 10;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        /* Camioneta central flotante (nevado1.png) */
+        .car-hero {
+            width: 75%; /* Más pequeña para mejor ajuste móvil */
+            margin: 0 auto 15px auto;
+            animation: float 5s ease-in-out infinite;
+            filter: drop-shadow(0 15px 25px rgba(0,217,255,0.2));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+
+        .car-hero img {
+            width: 100%;
+            height: auto;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Estilo de Botón Star Border (Efecto de la referencia) */
+        .star-border-btn {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .star-border-btn:active { transform: scale(0.96); }
+
+        .border-animation {
+            position: absolute;
+            width: 300%;
+            height: 100%;
+            background: radial-gradient(circle, var(--accent-bright), transparent 20%);
+            animation: move-border 4s linear infinite;
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        @keyframes move-border {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .btn-content {
+            position: relative;
+            margin: 1px;
+            background: #161b22;
+            padding: 16px;
+            border-radius: 17px;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Iconos de Redes (Estilo minimalista azul) */
+        .social-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .social-row i {
+            font-size: 1.4rem;
+            color: var(--accent);
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+
+        .social-row i:hover { opacity: 1; color: var(--accent-bright); }
+
+        .info-list {
+            text-align: left;
+            font-size: 0.85rem;
+            margin: 15px 0 25px 15px;
+            color: #a0aab4;
+            list-style: none;
+        }
+
+        .info-list li { margin: 8px 0; display: flex; align-items: center; gap: 10px; }
+        .info-list i { color: var(--accent-bright); font-size: 0.7rem; }
+
+    </style>
+</head>
+<body>
+
+    <div class="watermark-bg"></div>
+
+    <div class="card-container">
+        <div class="car-hero">
+            <img src="nevado1.png" alt="Nevado Ejecutivo">
+        </div>
+
+        <h1>Transporte Ejecutivo</h1>
+        <span class="subtitle">Premium Service</span>
+
+        <ul class="info-list">
+            <li><i class="fas fa-circle"></i> Traslados privados</li>
+            <li><i class="fas fa-circle"></i> Aire Acondicionado</li>
+            <li><i class="fas fa-circle"></i> Disponibilidad 24/7</li>
+            <li><i class="fas fa-circle"></i> Seguridad y rapidez garantizada</li>
+        </ul>
+
+        <div class="star-border-btn" onclick="window.open('https://wa.me/584129631803', '_blank')">
+            <div class="border-animation"></div>
+            <div class="btn-content">
+                <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+                Chat Directo WhatsApp
+            </div>
+        </div>
+
+        <div class="star-border-btn" onclick="downloadVCard()">
+            <div class="border-animation" style="animation-delay: -2s; opacity: 0.4;"></div>
+            <div class="btn-content">
+                <i class="fas fa-user-plus" style="color: var(--accent-bright);"></i>
+                Guardar Contacto
+            </div>
+        </div>
+
+        <div class="social-row">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-facebook"></i>
+            <i class="fab fa-tiktok"></i>
+        </div>
+    </div>
+
+    <script>
+        function downloadVCard() {
+            const vcard = "BEGIN:VCARD\n" +
+                          "VERSION:3.0\n" +
+                          "FN:Transporte Ejecutivo Nevado\n" +
+                          "TEL;TYPE=CELL:04129631803\n" +
+                          "NOTE:Servicio de Traslados Privados\n" +
+                          "END:VCARD";
+            const blob = new Blob([vcard], { type: "text/vcard" });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "Nevado_Contacto.vcf");
+            link.click();
+        }
+    </script>
+</body>
+</html>
