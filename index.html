@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Paleta basada en el azul del vehículo Nevado */
             --accent: #87b9d1; 
             --accent-bright: #00d9ff;
             --dark-bg: #0a0c10;
-            --glass: rgba(15, 20, 25, 0.85);
-            --glass-border: rgba(135, 185, 209, 0.2);
+            /* Transparencia ajustada de 0.85 a 0.4 para que se vea el fondo */
+            --glass: rgba(10, 12, 16, 0.4); 
+            --glass-border: rgba(135, 185, 209, 0.3);
             --text-light: #f0f4f8;
         }
 
@@ -35,18 +35,17 @@
             position: relative;
         }
 
-        /* Marca de agua lateral (nevado2.png) */
         .watermark-bg {
             position: fixed;
             top: 0;
-            right: -35%; /* Solo media camioneta visible en móvil */
+            right: -35%;
             height: 100vh;
             width: 120%;
             background-image: url('nevado2.png');
             background-repeat: no-repeat;
             background-size: contain;
             background-position: right center;
-            opacity: 0.12;
+            opacity: 0.18; /* Subí un poco la opacidad para que resalte tras el cristal */
             z-index: 0;
             pointer-events: none;
         }
@@ -55,19 +54,20 @@
             width: 92%;
             max-width: 400px;
             background: var(--glass);
-            backdrop-filter: blur(20px);
+            /* El blur es clave para el efecto cristal */
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
             border-radius: 35px;
             padding: 25px;
             text-align: center;
             z-index: 10;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
             position: relative;
         }
 
-        /* Camioneta central flotante (nevado1.png) */
         .car-hero {
-            width: 75%; /* Más pequeña para mejor ajuste móvil */
+            width: 75%;
             margin: 0 auto 15px auto;
             animation: float 5s ease-in-out infinite;
             filter: drop-shadow(0 15px 25px rgba(0,217,255,0.2));
@@ -101,7 +101,6 @@
             display: block;
         }
 
-        /* Estilo de Botón Star Border (Efecto de la referencia) */
         .star-border-btn {
             position: relative;
             border-radius: 18px;
@@ -131,7 +130,7 @@
         .btn-content {
             position: relative;
             margin: 1px;
-            background: #161b22;
+            background: rgba(22, 27, 34, 0.8); /* Botones también con leve transparencia */
             padding: 16px;
             border-radius: 17px;
             z-index: 1;
@@ -144,7 +143,6 @@
             text-decoration: none;
         }
 
-        /* Iconos de Redes (Estilo minimalista azul) */
         .social-row {
             display: flex;
             justify-content: center;
@@ -167,7 +165,7 @@
             text-align: left;
             font-size: 0.85rem;
             margin: 15px 0 25px 15px;
-            color: #a0aab4;
+            color: #f0f4f8; /* Color más claro para resaltar sobre el cristal */
             list-style: none;
         }
 
