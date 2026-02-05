@@ -9,7 +9,6 @@
         :root {
             --accent: #00d9ff;
             --dark-bg: #0a0c10;
-            /* Transparencia aumentada a 0.2 para máxima visibilidad del fondo */
             --glass: rgba(10, 12, 16, 0.2); 
             --glass-border: rgba(255, 255, 255, 0.1);
             --text-light: #ffffff;
@@ -29,13 +28,13 @@
             color: var(--text-light);
             min-height: 100vh;
             display: flex;
+            flex-direction: column; /* Para permitir el pie de página fuera de la tarjeta */
             align-items: center;
             justify-content: center;
             overflow: hidden;
             position: relative;
         }
 
-        /* Marca de agua lateral (nevado2.png) */
         .watermark-bg {
             position: fixed;
             top: 0;
@@ -46,7 +45,7 @@
             background-repeat: no-repeat;
             background-size: contain;
             background-position: right center;
-            opacity: 0.25; /* Opacidad ajustada para que resalte tras la transparencia */
+            opacity: 0.25;
             z-index: 0;
             pointer-events: none;
         }
@@ -59,15 +58,15 @@
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
             border-radius: 35px;
-            padding: 30px 25px;
+            padding: 25px 25px 20px 25px;
             text-align: center;
             z-index: 10;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
         .car-hero {
-            width: 65%; /* Más pequeño como pediste */
-            margin: 0 auto 15px auto;
+            width: 60%;
+            margin: 0 auto 10px auto;
             animation: float 5s ease-in-out infinite;
             filter: drop-shadow(0 10px 20px rgba(0,217,255,0.3));
         }
@@ -81,9 +80,6 @@
 
         /* --- EFECTO GRADIENT TEXT --- */
         .animated-gradient-text {
-            font-size: 1.7rem;
-            font-weight: 800;
-            margin-bottom: 5px;
             background-image: linear-gradient(to right, #00d9ff, #FF9FFC, #00d9ff);
             background-size: 200% auto;
             background-clip: text;
@@ -96,25 +92,42 @@
             to { background-position: 200% center; }
         }
 
+        h1.animated-gradient-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
         .subtitle {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--accent);
             text-transform: uppercase;
             letter-spacing: 4px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: block;
             opacity: 0.8;
         }
 
-        /* --- EFECTO STAR BORDER (Exacto a la referencia) --- */
+        .info-list {
+            text-align: left;
+            font-size: 0.8rem;
+            margin: 0 0 20px 10px;
+            color: #d1d5db;
+            list-style: none;
+        }
+
+        .info-list li { margin: 6px 0; display: flex; align-items: center; gap: 10px; }
+        .info-list i { color: var(--accent); font-size: 0.5rem; }
+
+        /* --- EFECTO STAR BORDER --- */
         .star-border-container {
             position: relative;
-            border-radius: 20px;
+            border-radius: 18px;
             overflow: hidden;
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             cursor: pointer;
-            padding: 1px; /* Espacio para el borde */
+            padding: 1px;
         }
 
         .border-gradient-top, .border-gradient-bottom {
@@ -152,9 +165,9 @@
 
         .inner-content {
             position: relative;
-            background: #121212; /* Color sólido para que el borde se vea limpio */
-            padding: 16px;
-            border-radius: 19px;
+            background: #121212;
+            padding: 14px;
+            border-radius: 17px;
             z-index: 1;
             display: flex;
             align-items: center;
@@ -162,39 +175,52 @@
             gap: 12px;
             font-weight: 600;
             color: white;
-            transition: background 0.3s;
+            font-size: 0.9rem;
         }
 
-        .inner-content:hover { background: #1a1a1a; }
-
-        .info-list {
-            text-align: left;
-            font-size: 0.85rem;
-            margin: 0 0 25px 10px;
-            color: #d1d5db;
-            list-style: none;
+        /* --- NUEVOS ELEMENTOS --- */
+        .zona-text {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin: 10px 0;
+            display: block;
         }
-
-        .info-list li { margin: 8px 0; display: flex; align-items: center; gap: 10px; }
-        .info-list i { color: var(--accent); font-size: 0.6rem; }
 
         .social-row {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 15px;
+            margin-top: 10px;
             padding-top: 15px;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         .social-row i {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: var(--accent);
             opacity: 0.6;
             transition: 0.3s;
         }
 
-        .social-row i:hover { opacity: 1; transform: translateY(-2px); }
+        .powered-by {
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            z-index: 10;
+            letter-spacing: 1px;
+        }
+
+        .powered-by a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .powered-by a:hover {
+            color: #FF9FFC;
+            text-shadow: 0 0 5px var(--accent);
+        }
     </style>
 </head>
 <body>
@@ -234,11 +260,17 @@
             </div>
         </div>
 
+        <span class="zona-text animated-gradient-text">Zona: Caracas - Distrito Capital</span>
+
         <div class="social-row">
             <i class="fab fa-instagram"></i>
             <i class="fab fa-facebook"></i>
             <i class="fab fa-tiktok"></i>
         </div>
+    </div>
+
+    <div class="powered-by">
+        powered: by <a href="https://wa.me/584228745777?text=Estoy%20interesado%20en%20sus%20servicios%20digitales" target="_blank">gabora646</a>
     </div>
 
     <script>
