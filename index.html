@@ -7,20 +7,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --accent: #87b9d1; 
-            --accent-bright: #00d9ff;
+            --accent: #00d9ff;
             --dark-bg: #0a0c10;
-            /* Transparencia ajustada de 0.85 a 0.4 para que se vea el fondo */
-            --glass: rgba(10, 12, 16, 0.7); 
-            --glass-border: rgba(135, 185, 209, 0.3);
-            --text-light: #f0f4f8;
+            /* Transparencia aumentada a 0.2 para máxima visibilidad del fondo */
+            --glass: rgba(10, 12, 16, 0.2); 
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-light: #ffffff;
+            --secondary: #1a1a1a;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
@@ -35,6 +35,7 @@
             position: relative;
         }
 
+        /* Marca de agua lateral (nevado2.png) */
         .watermark-bg {
             position: fixed;
             top: 0;
@@ -45,7 +46,7 @@
             background-repeat: no-repeat;
             background-size: contain;
             background-position: right center;
-            opacity: 0.18; /* Subí un poco la opacidad para que resalte tras el cristal */
+            opacity: 0.25; /* Opacidad ajustada para que resalte tras la transparencia */
             z-index: 0;
             pointer-events: none;
         }
@@ -54,85 +55,106 @@
             width: 92%;
             max-width: 400px;
             background: var(--glass);
-            /* El blur es clave para el efecto cristal */
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
             border-radius: 35px;
-            padding: 25px;
+            padding: 30px 25px;
             text-align: center;
             z-index: 10;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
         .car-hero {
-            width: 75%;
+            width: 65%; /* Más pequeño como pediste */
             margin: 0 auto 15px auto;
             animation: float 5s ease-in-out infinite;
-            filter: drop-shadow(0 15px 25px rgba(0,217,255,0.2));
+            filter: drop-shadow(0 10px 20px rgba(0,217,255,0.3));
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(1deg); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        .car-hero img {
-            width: 100%;
-            height: auto;
-        }
+        .car-hero img { width: 100%; height: auto; }
 
-        h1 {
-            font-size: 1.6rem;
-            letter-spacing: 1px;
+        /* --- EFECTO GRADIENT TEXT --- */
+        .animated-gradient-text {
+            font-size: 1.7rem;
+            font-weight: 800;
             margin-bottom: 5px;
-            background: linear-gradient(to right, #fff, var(--accent));
+            background-image: linear-gradient(to right, #00d9ff, #FF9FFC, #00d9ff);
+            background-size: 200% auto;
+            background-clip: text;
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: transparent;
+            animation: gradientMove 4s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            to { background-position: 200% center; }
         }
 
         .subtitle {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--accent);
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             margin-bottom: 20px;
             display: block;
+            opacity: 0.8;
         }
 
-        .star-border-btn {
+        /* --- EFECTO STAR BORDER (Exacto a la referencia) --- */
+        .star-border-container {
             position: relative;
-            border-radius: 18px;
+            border-radius: 20px;
             overflow: hidden;
+            width: 100%;
             margin-bottom: 15px;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            padding: 1px; /* Espacio para el borde */
         }
 
-        .star-border-btn:active { transform: scale(0.96); }
-
-        .border-animation {
+        .border-gradient-top, .border-gradient-bottom {
             position: absolute;
             width: 300%;
             height: 100%;
-            background: radial-gradient(circle, var(--accent-bright), transparent 20%);
-            animation: move-border 4s linear infinite;
-            opacity: 0.6;
+            opacity: 0.8;
             z-index: 0;
+            border-radius: 50%;
         }
 
-        @keyframes move-border {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        .border-gradient-top {
+            top: -50%;
+            left: -150%;
+            background: radial-gradient(circle, var(--accent), transparent 15%);
+            animation: star-movement-top 6s linear infinite;
         }
 
-        .btn-content {
+        .border-gradient-bottom {
+            bottom: -50%;
+            right: -150%;
+            background: radial-gradient(circle, var(--accent), transparent 15%);
+            animation: star-movement-bottom 6s linear infinite;
+        }
+
+        @keyframes star-movement-top {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100%, 0); }
+        }
+
+        @keyframes star-movement-bottom {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        .inner-content {
             position: relative;
-            margin: 1px;
-            background: rgba(22, 27, 34, 0.8); /* Botones también con leve transparencia */
+            background: #121212; /* Color sólido para que el borde se vea limpio */
             padding: 16px;
-            border-radius: 17px;
+            border-radius: 19px;
             z-index: 1;
             display: flex;
             align-items: center;
@@ -140,14 +162,27 @@
             gap: 12px;
             font-weight: 600;
             color: white;
-            text-decoration: none;
+            transition: background 0.3s;
         }
+
+        .inner-content:hover { background: #1a1a1a; }
+
+        .info-list {
+            text-align: left;
+            font-size: 0.85rem;
+            margin: 0 0 25px 10px;
+            color: #d1d5db;
+            list-style: none;
+        }
+
+        .info-list li { margin: 8px 0; display: flex; align-items: center; gap: 10px; }
+        .info-list i { color: var(--accent); font-size: 0.6rem; }
 
         .social-row {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 20px;
+            margin-top: 15px;
             padding-top: 15px;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
@@ -155,23 +190,11 @@
         .social-row i {
             font-size: 1.4rem;
             color: var(--accent);
-            opacity: 0.7;
+            opacity: 0.6;
             transition: 0.3s;
         }
 
-        .social-row i:hover { opacity: 1; color: var(--accent-bright); }
-
-        .info-list {
-            text-align: left;
-            font-size: 0.85rem;
-            margin: 15px 0 25px 15px;
-            color: #f0f4f8; /* Color más claro para resaltar sobre el cristal */
-            list-style: none;
-        }
-
-        .info-list li { margin: 8px 0; display: flex; align-items: center; gap: 10px; }
-        .info-list i { color: var(--accent-bright); font-size: 0.7rem; }
-
+        .social-row i:hover { opacity: 1; transform: translateY(-2px); }
     </style>
 </head>
 <body>
@@ -183,28 +206,30 @@
             <img src="nevado1.png" alt="Nevado Ejecutivo">
         </div>
 
-        <h1>Transporte Ejecutivo</h1>
-        <span class="subtitle">Premium Service</span>
+        <h1 class="animated-gradient-text">Transporte Ejecutivo</h1>
+        <span class="subtitle">Premium VIP Service</span>
 
         <ul class="info-list">
-            <li><i class="fas fa-circle"></i> Traslados privados</li>
+            <li><i class="fas fa-circle"></i> Traslados privados y rápidos</li>
             <li><i class="fas fa-circle"></i> Aire Acondicionado</li>
-            <li><i class="fas fa-circle"></i> Disponibilidad 24/7</li>
-            <li><i class="fas fa-circle"></i> Seguridad y rapidez garantizada</li>
+            <li><i class="fas fa-circle"></i> Disponibilidad 24 Horas / 7 Días</li>
+            <li><i class="fas fa-circle"></i> El servicio más seguro de la ciudad</li>
         </ul>
 
-        <div class="star-border-btn" onclick="window.open('https://wa.me/584129631803', '_blank')">
-            <div class="border-animation"></div>
-            <div class="btn-content">
+        <div class="star-border-container" onclick="window.open('https://wa.me/584129631803', '_blank')">
+            <div class="border-gradient-top"></div>
+            <div class="border-gradient-bottom"></div>
+            <div class="inner-content">
                 <i class="fab fa-whatsapp" style="color: #25D366;"></i>
                 Chat Directo WhatsApp
             </div>
         </div>
 
-        <div class="star-border-btn" onclick="downloadVCard()">
-            <div class="border-animation" style="animation-delay: -2s; opacity: 0.4;"></div>
-            <div class="btn-content">
-                <i class="fas fa-user-plus" style="color: var(--accent-bright);"></i>
+        <div class="star-border-container" onclick="downloadVCard()">
+            <div class="border-gradient-top" style="animation-delay: -3s;"></div>
+            <div class="border-gradient-bottom" style="animation-delay: -3s;"></div>
+            <div class="inner-content">
+                <i class="fas fa-user-plus" style="color: var(--accent);"></i>
                 Guardar Contacto
             </div>
         </div>
@@ -222,7 +247,6 @@
                           "VERSION:3.0\n" +
                           "FN:Transporte Ejecutivo Nevado\n" +
                           "TEL;TYPE=CELL:04129631803\n" +
-                          "NOTE:Servicio de Traslados Privados\n" +
                           "END:VCARD";
             const blob = new Blob([vcard], { type: "text/vcard" });
             const url = window.URL.createObjectURL(blob);
